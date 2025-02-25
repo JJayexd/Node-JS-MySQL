@@ -1,3 +1,4 @@
+import dbConfig from '../Configs/sequelizeConfig.js';
 import sequelize from '../Configs/sequelizeConfig.js';
 import { DataTypes, Model } from 'sequelize';
 
@@ -42,6 +43,6 @@ carModel.init({
     }
 
 }, {
-    sequelize,
+    sequelize: dbConfig,
     modelName: 'car'
 });

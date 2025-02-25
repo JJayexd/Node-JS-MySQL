@@ -1,10 +1,11 @@
 import http from 'http';
 import express from 'express';
+import { dbController } from './Controllers/dbController.js';
+import { carController } from './Controllers/carController.js';
+import { categoryController } from './Controllers/categoryController.js';
+import { brandController } from './Controllers/brandController.js';
 
-import sequelize from './Configs/sequelizeConfig.js';
-import carModel from './Models/carModel.js';
-import categoryModel from './Models/categoryModel.js';
-import brandModel from './Models/brandModel.js';
+import dbConfig from './Configs/sequelizeConfig.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -24,6 +25,14 @@ app.listen(port, () => {
     console.log('Running..');
 })
 
+app.use(
+    dbController, 
+    carController,
+    categoryController,
+    brandController
+    );
+
+
 app.get("/", (req, res) => {
     res.status(200).json({
         message: "BOOM SAKALAKA"
@@ -42,25 +51,25 @@ app.get('/contact', (req, res) => {
     })
 });
 
-app.get('/test', async(req, res) => {
-    try {
-        await sequelize.authenticate();
-        console.log('Der er forbindelse til databasen');
-        res.send('Der er forbindelse til databasen');
-    } catch (error) {
-        console.error ('Fejl: Kunne ikke forbinde til databasen', error);
-        res.status(500).send('Fejl: Kunne ikke forbinde til databasen');
-    }
-})
+// app.get('/test', async(req, res) => {
+//     try {
+//         await sequelize.authenticate();
+//         console.log('Der er forbindelse til databasen');
+//         res.send('Der er forbindelse til databasen');
+//     } catch (error) {
+//         console.error ('Fejl: Kunne ikke forbinde til databasen', error);
+//         res.status(500).send('Fejl: Kunne ikke forbinde til databasen');
+//     }
+// })
 
-app.get('/sync', async (req, res) => {
-    try {
-        await sequelize.sync({ force: true });
-        res.send('Synkroniseret.');
-    } catch (error) {
-        res.status(500).send('Fejl', error);
-    }
-})
+// app.get('/sync', async (req, res) => {
+//     try {
+//         await sequelize.sync({ force: true });
+//         res.send('Synkroniseret.');
+//     } catch (error) {
+//         res.status(500).send('Fejl', error);
+//     }
+// })
 
 app.get('*', (req, res) => {
     res.status(404).json({

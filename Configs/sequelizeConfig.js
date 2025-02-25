@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sequelize =  new Sequelize(
+const dbConfig =  new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
     process.env.DB_PASSWD,
@@ -14,4 +14,4 @@ const sequelize =  new Sequelize(
     }
 );
 
-export default sequelize
+export default dbConfig
