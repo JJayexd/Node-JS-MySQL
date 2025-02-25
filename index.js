@@ -11,8 +11,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
-const port = process.env.PORT || 7900;
+const port = process.env.PORT || 4000;
 
 // http.createServer((request, response) => {
 //     response.writeHead(200, { 'Content-Type': 'text/plain' });

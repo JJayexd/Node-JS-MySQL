@@ -38,7 +38,7 @@ carModel.init({
     },
     
     year: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DATE,
         allowNull: false
     }
 
